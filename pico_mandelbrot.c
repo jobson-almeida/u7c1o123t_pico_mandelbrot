@@ -31,7 +31,7 @@ volatile uint8_t temp_cursor_y_position = 0;
 // variavés que correspondem ao tamanho do cursor
 volatile uint8_t new_height = 0;
 volatile uint8_t new_width = 0;
-volatile uint8_t new_cursor_size = 0;
+volatile int new_cursor_size = 0;
 volatile uint8_t temp_cursor_size = 0;
 
 // variável que define o comportamento dos botões A e B.
@@ -211,6 +211,8 @@ void button_interruption_gpio_irq_handler(uint gpio, uint32_t events)
             if (cursor_button_status)
             {
                 new_cursor_size--; // se cursor_button_status for verdadeiro, decrementa o tamanho do cursor.
+                if(new_cursor_size < 0) new_cursor_size = 0;
+                printf("%d\n", new_cursor_size);
             }
             else
             {
